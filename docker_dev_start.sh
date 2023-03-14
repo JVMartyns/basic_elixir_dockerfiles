@@ -1,0 +1,1 @@
+exec mix phx.server 

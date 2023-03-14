@@ -1,0 +1,32 @@
+version: "3"
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+    command: /bin/sh docker_dev_start.sh
+    ports:
+      - "4000:4000"
+    depends_on:
+      - app_db
+    env_file:
+      - .env
+    volumes:
+     - ./:/app/
+    networks:
+      - app_network
+     
+  app_db:
+    container_name: app_db
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    name: app_network
